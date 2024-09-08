@@ -109,7 +109,114 @@
         .stats-container {
             width: 50rem;
             height: 30rem;
-            background-color: rgb(1, 107, 199);
+            /* background-color: rgb(1, 107, 199); */
+        }
+
+        .circle {
+            width: 140px;
+            height: 140px;
+            margin: 15px;
+            border-radius: 50%;
+            border: 4px solid #f38805;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1 rem;
+            font-family: poppins;
+            color: white;
+            font-weight: 400;
+            background: conic-gradient(#FFA015 var(--progress-degree, 0%), black 0%);
+            flex-direction: column;
+        }
+
+        .circle span {
+            position: relative;
+            z-index: 2;
+        }
+
+        .progress {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .stat-container {
+            display: flex;
+            align-items: center;
+            gap: 5rem;
+        }
+
+        .acceptance-rate-container {
+            margin-top: 20px;
+            height: 7rem;
+            width: 23rem;
+            margin-left: 6rem;
+            color: white;
+            border: 4px solid #f38805;
+            overflow: hidden;
+            background-color: black;
+        }
+
+        .acceptance-bar {
+            width: 100%;
+            background-color: white;
+            height: 6rem;
+            border-radius: 0px 40px 0px 0px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .acceptance-rate-fill {
+            background-color: #04b439;
+            height: 100%;
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+
+        .para p {
+            margin: 4px;
+            margin-left: 10px;
+            font-size: 1rem;
+            display: inline-block;
+            font-family: poppins;
+        }
+
+        #acceptance-rate-label {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            color: white;
+            font-family: poppins;
+            font-size: 30px;
+            font-weight: 300;
+        }
+
+        .ranking-card {
+            margin-top: 20px;
+            height: 7rem;
+            width: 10rem;
+            color: white;
+            border: 4px solid #f38805;
+            overflow: hidden;
+            background-color: black;
+            text-align: center;
+            position: relative;
+        }
+
+        .icon-container {
+            margin-top: 20px;
+            font-size: 30px;
+            color: #ffbd06;
+            margin-bottom: 8px;
+        }
+
+        .ranking-info {
+            font-size: 20px;
+            font-weight: 300;
+            font-family: poppins;
         }
     </style>
 </head>
@@ -124,7 +231,54 @@
                 <input type="text" placeholder="Enter the username" id="user-input">
                 <button id="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
             </div>
-            <div class="stats-container">
+
+
+            <div class="stats-container" id="stats-container">
+                <div class="progress">
+                    <div class="progress-item">
+                        <div class="easy-progress circle">
+                            <span id="easy-label"></span>
+                            <p>Easy</p>
+                        </div>
+                    </div>
+
+                    <div class="progress-item ">
+                        <div class="medium-progress circle">
+                            <span id="medium-label"></span>
+                            <p>Medium</p>
+                        </div>
+                    </div>
+
+                    <div class="progress-item ">
+                        <div class="hard-progress circle">
+                            <span id="hard-label"></span>
+                            <p>Hard</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="stat-container" id="stat-container">
+                    <div class="acceptance-rate-container">
+                        <label class="para">
+                            <p>Acceptance Rate:</p>
+                        </label>
+                        <div class="acceptance-bar">
+                            <div id="acceptance-rate-bar" class="acceptance-rate-fill">
+                                <span id="acceptance-rate-label"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ranking-card">
+                        <div class="icon-container">
+                            <i class="fa-solid fa-ranking-star"></i>
+                        </div>
+                        <div class="ranking-info">
+                            <span id="global-ranking"></span>
+                        </div>
+                    </div>
+                </div>
+
 
             </div>
         </div>
@@ -134,6 +288,18 @@
         document.addEventListener("DOMContentLoaded", function () {
             const searchButton = document.getElementById("search-btn")
             const usernameInput = document.getElementById("user-input")
+            const statsContainer = document.getElementById("stats-container");
+            const easyLabel = document.getElementById("easy-label");
+            const mediumLabel = document.getElementById("medium-label");
+            const hardLabel = document.getElementById("hard-label");
+            const easyProgressCircle = document.querySelector(".easy-progress");
+            const mediumProgressCircle = document.querySelector(".medium-progress");
+            const hardProgressCircle = document.querySelector(".hard-progress");
+
+            const acceptanceRateBar = document.getElementById("acceptance-rate-bar");
+            const acceptanceRateLabel = document.getElementById("acceptance-rate-label");
+
+            const rankingElement = document.getElementById("global-ranking");
 
             // basically we are doing the validation of the leetcode username
             function validateUsername(username) {
@@ -158,10 +324,10 @@
                     const response = await fetch(url)
                     if (!response.ok) throw new Error("Unable to fetch user profile details");
 
-                    const data = await response.json()
-                    console.log("logging data: ", data)
+                    const parsedData = await response.json()
+                    console.log("logging data: ", parsedData)
 
-                    displayUserData(data);
+                    displayUserData(parsedData);
                 }
                 catch (error) {
                     console.log("No data found")
@@ -172,6 +338,36 @@
                 }
             }
 
+
+            function updateProgress(solved, total, label, circle) {
+                const progressDegree = (solved / total) * 100;
+                circle.style.setProperty("--progress-degree", `${progressDegree}%`)
+                label.textContent = `${solved}/${total}`
+            }
+
+
+
+            function displayUserData(parsedData) {
+                const totalEasyQues = parsedData.totalEasy;
+                const totalMediumQues = parsedData.totalMedium;
+                const totalHardQues = parsedData.totalHard;
+
+                const solvedTotalEasyQues = parsedData.easySolved;
+                const solvedTotalMediumQues = parsedData.mediumSolved;
+                const solvedTotalHardQues = parsedData.hardSolved;
+
+                updateProgress(solvedTotalEasyQues, totalEasyQues, easyLabel, easyProgressCircle);
+                updateProgress(solvedTotalMediumQues, totalMediumQues, mediumLabel, mediumProgressCircle);
+                updateProgress(solvedTotalHardQues, totalHardQues, hardLabel, hardProgressCircle);
+
+                const acceptanceRate = parsedData.acceptanceRate;
+
+                acceptanceRateBar.style.width = `${acceptanceRate}%`;
+                acceptanceRateLabel.textContent = `${acceptanceRate}%`;
+
+                const globalRanking = parsedData.ranking;
+                rankingElement.textContent = `${globalRanking}`;
+            }
 
             searchButton.addEventListener('click', function () {
                 const username = usernameInput.value;  // fetching the username
