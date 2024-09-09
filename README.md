@@ -1,6 +1,7 @@
-# LeetTrackr
+# [LeetTrackr](https://leet-trackr.vercel.app/)
 
-LeetTrackr is a user-friendly web application that displays personalized statistics for LeetCode users. The platform fetches data from a LeetCode API to provide insights into problem-solving progress, global ranking, acceptance rate, and a submission calendar heatmap. This project aims to enhance the coding experience by providing a visual representation of a user's LeetCode performance.
+LeetTrackr is a user-friendly web application that displays personalized statistics for LeetCode users. The platform fetches data from a LeetCode API to provide insights into problem-solving progress, global ranking, acceptance rate, and a submission calendar heatmap. This project aims to enhance the coding experience by providing a visual representation of a user's LeetCode performance. <br>
+Project is LIVE : (https://leet-trackr.vercel.app/)
 
 ## Features
 
@@ -44,6 +45,7 @@ To run this project locally, follow these steps:
 ## API Used
 
 - **LeetCode Stats API**: Used to fetch user statistics [JeremyTsaii](https://github.com/JeremyTsaii) because there is no official Leetcode API available. The data includes total solved problems, acceptance rate, global ranking, submission calendar and many others. So, special thanks to Jeremy for creating such a wonderful API.
+- API link: (https://github.com/JeremyTsaii/leetcode-stats-api)
 
 ## Future Enhancements
 
@@ -55,6 +57,14 @@ To run this project locally, follow these steps:
 
 If you'd like to contribute to the project, feel free to fork the repository and submit a pull request. Any contributions such as bug fixes, feature enhancements, or code improvements are welcome.
 You can also use it for your college assignments 😄
+
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Preview
+
+
+
+https://github.com/user-attachments/assets/cfe6522a-8eaa-4fd1-b18b-1224717542c0
+
