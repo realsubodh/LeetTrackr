@@ -43,7 +43,7 @@ To run this project locally, follow these steps:
 
 ## API Used
 
-- **LeetCode Stats API**: Used to fetch user statistics from LeetCode. The data includes total solved problems, acceptance rate, global ranking, and submission calendar.
+- **LeetCode Stats API**: Used to fetch user statistics [JeremyTsaii](https://github.com/JeremyTsaii) because there is no official Leetcode API available. The data includes total solved problems, acceptance rate, global ranking, submission calendar and many others. So, special thanks to Jeremy for creating such a wonderful API.
 
 ## Future Enhancements
 
@@ -54,7 +54,7 @@ To run this project locally, follow these steps:
 ## Contributing
 
 If you'd like to contribute to the project, feel free to fork the repository and submit a pull request. Any contributions such as bug fixes, feature enhancements, or code improvements are welcome.
-
+You can also use it for your college assignments 😄
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
