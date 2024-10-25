@@ -21,6 +21,8 @@ Project is LIVE : (https://leet-trackr.vercel.app/)
     - [Chart.js](https://www.chartjs.org/): Used for data visualization (can be added for further enhancements).
 
 ## How It Works
+<img width="873" alt="Screenshot 2024-10-25 at 4 41 16 PM" src="https://github.com/user-attachments/assets/f19e7782-9920-4c31-b77a-9b8cd874be98">
+
 
 1. **Username Validation**: Users must enter a valid LeetCode username. The app checks for valid input using regular expressions.
 2. **API Fetching**: Once the username is validated, the app fetches user data via a LeetCode API.
